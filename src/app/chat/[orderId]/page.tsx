@@ -1,5 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
+import axios from "axios";
 import { useEffect, useState } from "react";
 import { io, Socket } from "socket.io-client";
 
@@ -12,7 +14,7 @@ interface Message {
   createdAt: string;
 }
 
-export default function ChatPage({ params }: { params: { chatId: string } }) {
+export default function ChatPage({ params }: { params: { orderId: string } }) {
   const [messages, setMessages] = useState<Message[]>([]);
   const [newMessage, setNewMessage] = useState<string>("");
   const [isTyping, setIsTyping] = useState<string | null>(null);
@@ -21,7 +23,21 @@ export default function ChatPage({ params }: { params: { chatId: string } }) {
   const [senderRole, setSenderRole] = useState<"CUSTOMER" | "HELPER" | "">("");
   const [userInfoSet, setUserInfoSet] = useState<boolean>(false);
 
-  const chatId = params.chatId;
+  const [chat, setChat] = useState<any>(null);
+
+  const orderId = params.orderId;
+
+  useEffect(() => {
+    const fetchChat = async () => {
+      const response = await axios.get(
+        `http://localhost:5000/api/v1/chats/${orderId}`
+      );
+      const data = response.data?.data;
+      setChat(data);
+    };
+
+    fetchChat();
+  }, [orderId]);
 
   useEffect(() => {
     // Check if senderId and senderRole are stored in local storage
@@ -36,13 +52,13 @@ export default function ChatPage({ params }: { params: { chatId: string } }) {
   }, []);
 
   useEffect(() => {
-    if (!chatId || !userInfoSet) return;
+    if (!orderId || !userInfoSet) return;
 
     const socketInstance = io("http://localhost:5000"); // Replace with your server URL
     setSocket(socketInstance);
 
     // Join the room
-    socketInstance.emit("joinRoom", chatId);
+    socketInstance.emit("joinRoom", orderId);
 
     // Listen for previous messages
     socketInstance.on("loadMessages", (messages: Message[]) => {
@@ -64,13 +80,14 @@ export default function ChatPage({ params }: { params: { chatId: string } }) {
     return () => {
       socketInstance.disconnect();
     };
-  }, [chatId, userInfoSet]);
+  }, [orderId, userInfoSet]);
 
   const handleSendMessage = () => {
     if (!newMessage.trim() || !socket || !senderId || !senderRole) return;
 
     socket.emit("sendMessage", {
-      chatroomId: chatId,
+      orderId: orderId,
+      chatId: chat.id,
       senderId,
       content: newMessage,
       senderRole,
@@ -81,7 +98,7 @@ export default function ChatPage({ params }: { params: { chatId: string } }) {
 
   const handleTyping = () => {
     socket?.emit("typing", {
-      chatroomId: chatId,
+      chatroomId: orderId,
       username: senderRole,
     });
   };
@@ -145,7 +162,7 @@ export default function ChatPage({ params }: { params: { chatId: string } }) {
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col">
       <div className="bg-white p-4 shadow-md flex items-center justify-between">
-        <h1 className="text-xl font-semibold">Chat Room: {chatId}</h1>
+        <h1 className="text-xl font-semibold">Chat Room: {orderId}</h1>
         <h1 className="text-blue-500 text-2xl font-bold">
           {senderRole === "CUSTOMER" ? "Customer" : "Helper"}
         </h1>
