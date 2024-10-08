@@ -221,29 +221,20 @@ export default function ChatPage({ params }: { params: { orderId: string } }) {
           {messages.map((message) => (
             <div
               key={message.id}
-              className={`mb-2 rounded-full py-3 px-6 w-[40%]  ${
-                message.senderRole === "CUSTOMER"
-                  ? "bg-blue-500 text-white"
-                  : "bg-green-500 text-white"
-              } ${
-                message.senderRole === "HELPER"
-                  ? "self-end ml-auto"
-                  : "self-start"
-              }
-                  ${
-                    message.senderRole === "CUSTOMER"
-                      ? "self-end ml-auto"
-                      : "self-start"
-                  }`}
+              className={`mb-2  py-3 px-6 max-w-[75%] shadow-lg  ${
+                message.senderId === senderId &&
+                message.senderRole === senderRole
+                  ? "bg-[#4D88D5] text-white self-end ml-auto rounded-b-3xl rounded-r-3xl"
+                  : "bg-[#4D535C] self-start text-white rounded-t-3xl rounded-l-3xl"
+              }`}
             >
-              <div className="text-sm">
-                {message.senderRole}: {message.content}
-              </div>
-              <div className="text-xs text-gray-300">
+              <div className="text-sm">{message.content}</div>
+              <div className="text-xs text-gray-300 mt-2">
                 {new Date(message.createdAt).toLocaleString()}
               </div>
             </div>
           ))}
+
           {isTyping && <div className="text-gray-500">{isTyping}</div>}
         </div>
       ) : (
@@ -252,8 +243,7 @@ export default function ChatPage({ params }: { params: { orderId: string } }) {
         </div>
       )}
       <div className="p-4 bg-white flex items-center">
-        <input
-          type="text"
+        <textarea
           value={newMessage}
           onChange={(e) => setNewMessage(e.target.value)}
           onKeyPress={handleTyping}
