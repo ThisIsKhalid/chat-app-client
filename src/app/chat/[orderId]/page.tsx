@@ -166,8 +166,8 @@ export default function ChatPage({ params }: { params: { orderId: string } }) {
   }
 
   return (
-    <div className="min-h-screen bg-gray-100 flex flex-col text-[#433443] relative">
-      <div className="fixed w-full z-50 bg-white p-4 shadow-md flex items-center justify-between">
+    <div className="min-h-screen bg-gray-100 flex flex-col text-[#433443] relative justify-between">
+      <div className="fixed top-0 left-0 w-full z-50 bg-white p-4 shadow-md flex items-center justify-between">
         <div className="flex items-center gap-4">
           <MdArrowBackIosNew size={20} />
           <div className="flex gap-2 items-center">
@@ -218,7 +218,7 @@ export default function ChatPage({ params }: { params: { orderId: string } }) {
 
       {messages.length > 0 ? (
         <div
-          className={`container mx-auto transition-all duration-300 ease-in-out flex flex-col  p-4 overflow-y-auto`}
+          className={`container mx-auto transition-all duration-300 ease-in-out flex flex-col gap-2 p-4 overflow-y-auto`}
         >
           {messages.map((message) => (
             <div
@@ -226,8 +226,8 @@ export default function ChatPage({ params }: { params: { orderId: string } }) {
               className={`mb-2  py-3 px-6 max-w-[75%] shadow-lg  ${
                 message.senderId === senderId &&
                 message.senderRole === senderRole
-                  ? "bg-[#4D88D5] text-white self-end ml-auto rounded-b-3xl rounded-r-3xl"
-                  : "bg-[#4D535C] self-start text-white rounded-t-3xl rounded-l-3xl"
+                  ? "bg-[#4D88D5] text-white self-end ml-auto rounded-t-3xl rounded-l-3xl"
+                  : "bg-[#4D535C] self-start text-white rounded-t-3xl rounded-r-3xl"
               }`}
             >
               <div className="text-sm">{message.content}</div>
