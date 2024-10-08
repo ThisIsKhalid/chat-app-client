@@ -2,8 +2,12 @@
 "use client";
 
 import axios from "axios";
+import Image from "next/image";
 import { useEffect, useState } from "react";
+import { MdArrowBackIosNew, MdOutlineLogout } from "react-icons/md";
 import { io, Socket } from "socket.io-client";
+import boy from "../../../assets/boy.png";
+import man from "../../../assets/man.png";
 
 interface Message {
   id: number;
@@ -38,6 +42,8 @@ export default function ChatPage({ params }: { params: { orderId: string } }) {
 
     fetchChat();
   }, [orderId]);
+
+  console.log(chat);
 
   useEffect(() => {
     // Check if senderId and senderRole are stored in local storage
@@ -160,11 +166,43 @@ export default function ChatPage({ params }: { params: { orderId: string } }) {
   }
 
   return (
-    <div className="min-h-screen bg-gray-100 flex flex-col">
+    <div className="min-h-screen bg-gray-100 flex flex-col text-[#433443]">
       <div className="bg-white p-4 shadow-md flex items-center justify-between">
-        <h1 className="text-xl font-semibold">Chat Room: {orderId}</h1>
-        <h1 className="text-blue-500 text-2xl font-bold">
-          {senderRole === "CUSTOMER" ? "Customer" : "Helper"}
+        <div className="flex items-center gap-4">
+          <MdArrowBackIosNew size={20} />
+          <div className="flex gap-2 items-center">
+            {senderRole === "CUSTOMER" ? (
+              <Image
+                src={boy}
+                width={100}
+                height={100}
+                alt="logo"
+                className="rounded-full h-14 w-14 border border-gray-300 p-1"
+              />
+            ) : (
+              <Image
+                src={man}
+                width={100}
+                height={100}
+                alt="logo"
+                className="rounded-full h-14 w-14 border border-gray-300 p-1"
+              />
+            )}
+            <div>
+              <h1 className="font-bold text-lg">
+                {senderRole === "CUSTOMER"
+                  ? chat?.helper?.firstName + " " + chat?.helper?.lastName
+                  : chat?.helper?.firstName + " " + chat?.helper?.lastName}
+              </h1>
+              <h1 className="text-gray-500 text-sm">
+                {senderRole === "CUSTOMER" ? "Customer" : "Helper"}
+              </h1>
+            </div>
+          </div>
+        </div>
+
+        <h1 className="text-xl font-semibold border-b-2 border-r-2 p-2 rounded-lg border-[#B15A41]">
+          {chat?.order?.subject}
         </h1>
         <button
           onClick={() => {
@@ -172,22 +210,31 @@ export default function ChatPage({ params }: { params: { orderId: string } }) {
             localStorage.removeItem("senderRole");
             setUserInfoSet(false);
           }}
-          className="px-4 py-2 bg-red-500 text-white rounded-lg"
+          className=""
         >
-          Leave Chat
+          <MdOutlineLogout size={24} />
         </button>
       </div>
 
       {messages.length > 0 ? (
-        <div className="flex-1 p-4 overflow-y-auto">
+        <div className={`flex flex-col  p-4 overflow-y-auto`}>
           {messages.map((message) => (
             <div
               key={message.id}
-              className={`mb-2 p-2 rounded-lg ${
+              className={`mb-2 rounded-full py-3 px-6 w-[40%]  ${
                 message.senderRole === "CUSTOMER"
                   ? "bg-blue-500 text-white"
                   : "bg-green-500 text-white"
-              }`}
+              } ${
+                message.senderRole === "HELPER"
+                  ? "self-end ml-auto"
+                  : "self-start"
+              }
+                  ${
+                    message.senderRole === "CUSTOMER"
+                      ? "self-end ml-auto"
+                      : "self-start"
+                  }`}
             >
               <div className="text-sm">
                 {message.senderRole}: {message.content}
