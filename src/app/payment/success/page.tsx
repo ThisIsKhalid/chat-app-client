@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -6,19 +7,9 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { CheckoutPage } from "@/components/view/CheckoutPage";
-import React from "react";
+import { CheckCircle } from "lucide-react";
 
-const Payment = () => {
-  const productDetails = {
-    name: "Premium Consultation",
-    description: "One-hour consultation with our expert",
-    price: 300,
-    helperId: 1,
-    customerEmail: "iamkhalid.hs@gmail.com",
-  };
+export default function PaymentSuccessPage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-background to-secondary flex flex-col">
       <header className="bg-background shadow-sm">
@@ -41,50 +32,50 @@ const Payment = () => {
               QuickPay
             </span>
           </div>
-          <nav>
-            <Button variant="ghost">Help</Button>
-          </nav>
         </div>
       </header>
 
       <main className="flex-grow container mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <Card className="max-w-md mx-auto">
           <CardHeader>
+            <div className="flex justify-center mb-4">
+              <CheckCircle className="h-16 w-16 text-green-500" />
+            </div>
             <CardTitle className="text-2xl font-bold text-center">
-              {productDetails.name}
+              Payment Successful!
             </CardTitle>
           </CardHeader>
           <CardContent>
             <p className="text-center text-muted-foreground mb-6">
-              {productDetails.description}
+              Thank you for your purchase. Your payment has been processed
+              successfully.
             </p>
-            <div className="flex items-center justify-center mb-6">
-              <span className="text-4xl font-bold">
-                ${productDetails.price}
-              </span>
-            </div>
             <div className="space-y-4">
-              <div className="space-y-2">
-                <Label htmlFor="email">Email</Label>
-                <Input
-                  id="email"
-                  type="email"
-                  placeholder="Enter your email"
-                  defaultValue={productDetails.customerEmail}
-                />
+              <div className="bg-secondary/50 p-4 rounded-md">
+                <h3 className="font-semibold text-foreground">
+                  Order Details:
+                </h3>
+                <p className="text-sm text-muted-foreground">
+                  Order #: 1234567890
+                </p>
+                <p className="text-sm text-muted-foreground">Amount: $99.99</p>
+                <p className="text-sm text-muted-foreground">
+                  Date: {new Date().toLocaleDateString()}
+                </p>
               </div>
-              <CheckoutPage
-                helperId={productDetails.helperId}
-                amount={productDetails.price * 100} // Convert to cents for Stripe
-                customerEmail={productDetails.customerEmail}
-              />
+              <p className="text-sm text-muted-foreground">
+                A confirmation email has been sent to your registered email
+                address.
+              </p>
             </div>
           </CardContent>
-          <CardFooter>
-            <p className="text-xs text-muted-foreground text-center">
-              By clicking &quot;Pay Now&quot;, you agree to our Terms of Service
-              and Privacy Policy.
-            </p>
+          <CardFooter className="flex flex-col space-y-4">
+            <Button asChild className="w-full">
+              <Link href="/dashboard">Go to Dashboard</Link>
+            </Button>
+            <Button variant="outline" asChild className="w-full">
+              <Link href="/support">Need Help?</Link>
+            </Button>
           </CardFooter>
         </Card>
       </main>
@@ -98,6 +89,4 @@ const Payment = () => {
       </footer>
     </div>
   );
-};
-
-export default Payment;
+}

@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -6,19 +7,9 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { CheckoutPage } from "@/components/view/CheckoutPage";
-import React from "react";
+import { AlertCircle } from "lucide-react";
 
-const Payment = () => {
-  const productDetails = {
-    name: "Premium Consultation",
-    description: "One-hour consultation with our expert",
-    price: 300,
-    helperId: 1,
-    customerEmail: "iamkhalid.hs@gmail.com",
-  };
+export default function PaymentCancelledPage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-background to-secondary flex flex-col">
       <header className="bg-background shadow-sm">
@@ -41,50 +32,48 @@ const Payment = () => {
               QuickPay
             </span>
           </div>
-          <nav>
-            <Button variant="ghost">Help</Button>
-          </nav>
         </div>
       </header>
 
       <main className="flex-grow container mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <Card className="max-w-md mx-auto">
           <CardHeader>
+            <div className="flex justify-center mb-4">
+              <AlertCircle className="h-16 w-16 text-yellow-500" />
+            </div>
             <CardTitle className="text-2xl font-bold text-center">
-              {productDetails.name}
+              Payment Cancelled
             </CardTitle>
           </CardHeader>
           <CardContent>
             <p className="text-center text-muted-foreground mb-6">
-              {productDetails.description}
+              Your payment has been cancelled. No charges have been made to your
+              account.
             </p>
-            <div className="flex items-center justify-center mb-6">
-              <span className="text-4xl font-bold">
-                ${productDetails.price}
-              </span>
-            </div>
             <div className="space-y-4">
-              <div className="space-y-2">
-                <Label htmlFor="email">Email</Label>
-                <Input
-                  id="email"
-                  type="email"
-                  placeholder="Enter your email"
-                  defaultValue={productDetails.customerEmail}
-                />
+              <div className="bg-secondary/50 p-4 rounded-md">
+                <h3 className="font-semibold text-foreground">
+                  What happened?
+                </h3>
+                <ul className="list-disc list-inside text-sm text-muted-foreground mt-2 space-y-1">
+                  <li>The transaction was not completed</li>
+                  <li>Your account has not been charged</li>
+                  <li>Any reserved amount will be released shortly</li>
+                </ul>
               </div>
-              <CheckoutPage
-                helperId={productDetails.helperId}
-                amount={productDetails.price * 100} // Convert to cents for Stripe
-                customerEmail={productDetails.customerEmail}
-              />
+              <p className="text-sm text-muted-foreground">
+                If you encountered any issues or have questions, please dont
+                hesitate to contact our support team.
+              </p>
             </div>
           </CardContent>
-          <CardFooter>
-            <p className="text-xs text-muted-foreground text-center">
-              By clicking &quot;Pay Now&quot;, you agree to our Terms of Service
-              and Privacy Policy.
-            </p>
+          <CardFooter className="flex flex-col space-y-4">
+            <Button asChild className="w-full">
+              <Link href="/checkout">Try Again</Link>
+            </Button>
+            <Button variant="outline" asChild className="w-full">
+              <Link href="/support">Contact Support</Link>
+            </Button>
           </CardFooter>
         </Card>
       </main>
@@ -98,6 +87,4 @@ const Payment = () => {
       </footer>
     </div>
   );
-};
-
-export default Payment;
+}
