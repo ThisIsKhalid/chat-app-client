@@ -40,7 +40,10 @@ export function CheckoutPage({
         }
       );
 
-      const { sessionId } = await response.json();
+      const data = await response.json();
+      const sessionId = data?.data;
+
+      // console.log(data, sessionId);
 
       const stripe = await stripePromise;
       if (stripe) {

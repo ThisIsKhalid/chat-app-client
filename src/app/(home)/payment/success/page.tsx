@@ -12,29 +12,6 @@ import { CheckCircle } from "lucide-react";
 export default function PaymentSuccessPage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-background to-secondary flex flex-col">
-      <header className="bg-background shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
-          <div className="flex items-center">
-            <svg
-              className="h-8 w-8 text-primary"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M13 10V3L4 14h7v7l9-11h-7z"
-              />
-            </svg>
-            <span className="ml-2 text-xl font-bold text-foreground">
-              QuickPay
-            </span>
-          </div>
-        </div>
-      </header>
-
       <main className="flex-grow container mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <Card className="max-w-md mx-auto">
           <CardHeader>
@@ -79,14 +56,6 @@ export default function PaymentSuccessPage() {
           </CardFooter>
         </Card>
       </main>
-
-      <footer className="bg-background border-t border-border">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <p className="text-center text-muted-foreground text-sm">
-            &copy; 2023 QuickPay. All rights reserved.
-          </p>
-        </div>
-      </footer>
     </div>
   );
 }

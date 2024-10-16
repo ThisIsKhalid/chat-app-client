@@ -19,9 +19,9 @@ const PaymentPage = () => {
   const productDetails = {
     name: "Premium Consultation",
     description: "One-hour consultation with our expert",
-    price: 300,
+    price: 599,
     helperId: 1,
-    customerEmail: "iamkhalid.hs@gmail.com",
+    customerEmail: "nahidmahmudn2@gmail.com",
   };
 
 
