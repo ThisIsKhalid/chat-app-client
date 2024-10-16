@@ -6,8 +6,8 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { MdArrowBackIosNew, MdOutlineLogout } from "react-icons/md";
 import { io, Socket } from "socket.io-client";
-import boy from "../../../assets/boy.png";
-import man from "../../../assets/man.png";
+import boy from "../../../../assets/boy.png";
+import man from "../../../../assets/man.png";
 
 interface Message {
   id: number;
