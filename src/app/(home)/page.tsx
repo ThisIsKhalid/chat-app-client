@@ -1,4 +1,3 @@
-'use client'
 
 import boy from "../../assets/boy.png"
 

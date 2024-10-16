@@ -1,7 +1,10 @@
-import React from 'react'
+import ChatPage from "@/components/view/Chat/ChatPage";
+import React from "react";
 
 export default function Chat() {
   return (
-    <div>Chat</div>
-  )
+    <>
+      <ChatPage />
+    </>
+  );
 }

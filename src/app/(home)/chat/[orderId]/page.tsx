@@ -18,7 +18,7 @@ interface Message {
   createdAt: string;
 }
 
-export default function ChatPage({ params }: { params: { orderId: string } }) {
+export default function Messages({ params }: { params: { orderId: string } }) {
   const [messages, setMessages] = useState<Message[]>([]);
   const [newMessage, setNewMessage] = useState<string>("");
   const [isTyping, setIsTyping] = useState<string | null>(null);
