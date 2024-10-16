@@ -10,7 +10,7 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer";
-import { Github, Info, Linkedin, Mail, Menu, Twitter, Zap } from "lucide-react";
+import { CreditCard, Github, Info, Linkedin, Mail, Menu, MessageSquare, Phone, Twitter, Zap } from "lucide-react";
 import Link from "next/link";
 
 export default function Navbar() {
@@ -27,6 +27,9 @@ export default function Navbar() {
             </Link>
           </div>
           <nav className="hidden md:flex items-center space-x-4">
+            <NavLink href="/payment">Payment</NavLink>
+            <NavLink href="/chat">Chat</NavLink>
+            <NavLink href="/call">Call</NavLink>
             <NavLink href="/about">About</NavLink>
             <NavLink href="/contact">Contact</NavLink>
             <Button size="sm">Get Started</Button>
@@ -43,6 +46,24 @@ export default function Navbar() {
                   <DrawerTitle>Menu</DrawerTitle>
                 </DrawerHeader>
                 <div className="px-4 py-2 space-y-4">
+                  <MobileNavLink
+                    href="/payment"
+                    icon={<CreditCard className="h-5 w-5 mr-2" />}
+                  >
+                    Payment
+                  </MobileNavLink>
+                  <MobileNavLink
+                    href="/chat"
+                    icon={<MessageSquare className="h-5 w-5 mr-2" />}
+                  >
+                    Chat
+                  </MobileNavLink>
+                  <MobileNavLink
+                    href="/call"
+                    icon={<Phone className="h-5 w-5 mr-2" />}
+                  >
+                    Voice Call
+                  </MobileNavLink>
                   <MobileNavLink
                     href="/about"
                     icon={<Info className="h-5 w-5 mr-2" />}
