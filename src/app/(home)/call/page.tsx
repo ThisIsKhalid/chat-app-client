@@ -1,7 +1,9 @@
+import VoiceCallPage from "@/components/view/VoiceCall/VoiceCall";
+
 export default function CallPage() {
   return (
     <div>
-      <h1>Call Page</h1>
+      <VoiceCallPage />
     </div>
   );
 }
