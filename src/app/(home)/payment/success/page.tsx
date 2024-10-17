@@ -1,3 +1,4 @@
+'use client'
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import {
@@ -10,6 +11,28 @@ import {
 import { CheckCircle } from "lucide-react";
 
 export default function PaymentSuccessPage() {
+  // const router = useRouter();
+  // const [paymentStatus, setPaymentStatus] = useState<string | null>(null);
+  // const { session_id } = router.query; // Get session ID from URL
+
+  // useEffect(() => {
+  //   if (session_id) {
+  //     // Call your backend to verify the session
+  //     fetch(`/api/payment/verify-session?session_id=${session_id}`)
+  //       .then((response) => response.json())
+  //       .then((data) => {
+  //         setPaymentStatus(data.paymentStatus); // Handle the payment status response
+  //       })
+  //       .catch((error) => {
+  //         console.error("Error verifying session:", error);
+  //         setPaymentStatus("Error");
+  //       });
+  //   }
+  // }, [session_id]);
+
+  // if (!session_id) {
+  //   return <p>Loading...</p>; // Handle case where session_id is not yet available
+  // }
   return (
     <div className="min-h-screen bg-gradient-to-br from-background to-secondary flex flex-col">
       <main className="flex-grow container mx-auto px-4 sm:px-6 lg:px-8 py-12">
