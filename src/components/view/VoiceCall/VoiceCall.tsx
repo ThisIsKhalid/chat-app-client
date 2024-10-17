@@ -3,8 +3,10 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Phone, ShieldCheck, Wifi } from "lucide-react";
+import AgoraVoiceCall from "./AgoraVoiceCall";
 
 export default function VoiceCallPage() {
+   
   return (
     <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
       {/* Voice Call Hero Section */}
@@ -160,6 +162,9 @@ export default function VoiceCallPage() {
           </Button>
         </div>
       </section>
+
+      {/* ---------------------------agora----------------------- */}
+      <AgoraVoiceCall />
     </main>
   );
 }

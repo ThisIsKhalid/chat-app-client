@@ -1,3 +1,4 @@
+import AgoraProvider from "@/providers/AgoraProvider";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { ToastContainer } from "react-toastify";
@@ -17,7 +18,8 @@ const geistMono = localFont({
 
 export const metadata: Metadata = {
   title: "FeatureTest",
-  description: "FeatureTest is a feature testing platform. Here you can test chatting, voice calling and payment features.",
+  description:
+    "FeatureTest is a feature testing platform. Here you can test chatting, voice calling and payment features.",
 };
 
 export default function RootLayout({
@@ -27,14 +29,16 @@ export default function RootLayout({
 }>) {
   return (
     <>
-      <html lang="en">
-        <body
-          className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-        >
-          {children}
-          <ToastContainer />
-        </body>
-      </html>
+      <AgoraProvider>
+        <html lang="en">
+          <body
+            className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+          >
+            {children}
+            <ToastContainer />
+          </body>
+        </html>
+      </AgoraProvider>
     </>
   );
 }
