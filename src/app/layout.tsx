@@ -1,4 +1,3 @@
-import AgoraProvider from "@/providers/AgoraProvider";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { ToastContainer } from "react-toastify";
@@ -29,16 +28,14 @@ export default function RootLayout({
 }>) {
   return (
     <>
-      <AgoraProvider>
-        <html lang="en">
-          <body
-            className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-          >
-            {children}
-            <ToastContainer />
-          </body>
-        </html>
-      </AgoraProvider>
+      <html lang="en">
+        <body
+          className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        >
+          {children}
+          <ToastContainer />
+        </body>
+      </html>
     </>
   );
 }
