@@ -10,20 +10,20 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { CheckoutPage } from "@/components/view/CheckoutPage";
-import { CreditCard, User, CheckCircle, DollarSign } from "lucide-react";
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
+import { CheckCircle, CreditCard, DollarSign, User } from "lucide-react";
 import Link from "next/link";
+import { useState } from "react";
+import { SignupPage } from "../ChekoutPage2";
+
+const stripePromise = loadStripe(
+  process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY as string
+);
 
 const PaymentPage = () => {
-
-  const productDetails = {
-    name: "Premium Consultation",
-    description: "One-hour consultation with our expert",
-    price: 10.50,
-    helperId: 1,
-    customerEmail: "nahidmahmudn2@gmail.com",
-  };
-
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-background to-secondary flex flex-col">
@@ -58,26 +58,30 @@ const PaymentPage = () => {
                 </div>
               </CardHeader>
               <CardContent>
-                <div className="flex items-center justify-center mb-6">
-                  <span className="text-4xl font-bold">
-                    ${productDetails.price}
-                  </span>
-                </div>
                 <div className="flex flex-col gap-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="name">Name</Label>
+                    <Input
+                      id="name"
+                      type="text"
+                      placeholder="Enter your name"
+                      defaultValue={name}
+                      onChange={(e) => setName(e.target.value)}
+                    />
+                  </div>
                   <div className="space-y-2">
                     <Label htmlFor="email">Email</Label>
                     <Input
                       id="email"
                       type="email"
                       placeholder="Enter your email"
-                      defaultValue={productDetails.customerEmail}
+                      defaultValue={email}
+                      onChange={(e) => setEmail(e.target.value)}
                     />
                   </div>
-                  <CheckoutPage
-                    helperId={productDetails.helperId}
-                    amount={productDetails.price * 100} // Convert to cents for Stripe
-                    customerEmail={productDetails.customerEmail}
-                  />
+                  <Elements stripe={stripePromise}>
+                    <SignupPage name={name} email={email} />
+                  </Elements>
                 </div>
               </CardContent>
               <CardFooter>
